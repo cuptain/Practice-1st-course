@@ -36,12 +36,13 @@ namespace Задача_6
         //Проверка на минимум
         static bool Check(double a)
         {
-            if (a <= M)
+            if (a >= M)
             {
+                Console.ForegroundColor = ConsoleColor.Green;
                 if (a < M)
-                    Console.WriteLine("N = {0}, An = {1}, An < M", count, a);
+                    Console.WriteLine("\nN = {0}, An = {1}, An < M", count, a);
                 else
-                    Console.WriteLine("N = {0}, An = {1}, An = M", count, a);
+                    Console.WriteLine("\nN = {0}, An = {1}, An = M", count, a);
                 return true;
             }
             else
@@ -60,7 +61,7 @@ namespace Задача_6
             double a1 = Input("Введите первое число последовательнсоти:");
             double a2 = Input("Введите второе число последовательности:");
             double a3 = Input("Введите третье число последовательности:");
-            M = Input("Введите минимум последовательности:");
+            M = Input("Введите максимум последовательности:");
 
             Console.WriteLine("\na{0} = {1}\n", count, a1);
             if (!Check(a1))
@@ -68,7 +69,7 @@ namespace Задача_6
                 Console.WriteLine("a{0} = {1}\n", count, a2);
                 if(!Check(a2))
                 {
-                    Console.WriteLine("a{0} = {1}\n", count, a3);
+                    Console.WriteLine("a{0} = {1}", count, a3);
                     if(!Check(a3))
                         Recursion(a3, a2, a1);
                 }
