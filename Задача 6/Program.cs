@@ -39,8 +39,8 @@ namespace Задача_6
             if (a >= M)
             {
                 Console.ForegroundColor = ConsoleColor.Green;
-                if (a < M)
-                    Console.WriteLine("\nN = {0}, An = {1}, An < M", count, a);
+                if (a > M)
+                    Console.WriteLine("\nN = {0}, An = {1}, An > M", count, a);
                 else
                     Console.WriteLine("\nN = {0}, An = {1}, An = M", count, a);
                 return true;
