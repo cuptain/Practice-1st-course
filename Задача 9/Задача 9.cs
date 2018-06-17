@@ -43,7 +43,7 @@ namespace Задача_9
         static void Main(string[] args)
         {
             Console.ForegroundColor = ConsoleColor.White;
-            int N = ReadVGran(0,Int32.MaxValue,"Введите количество элементов списка (N):", "Количество элементво списка");
+            int N = ReadVGran(0,101,"Введите количество элементов списка (N):", "Количество элементво списка");
             Console.WriteLine("\nСозданный список: ");
             CycleList cycleList = new CycleList();
             cycleList.CreateCircularList(N);
