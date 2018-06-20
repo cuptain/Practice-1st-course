@@ -1,4 +1,10 @@
-﻿using System;
+﻿///
+/// Василюк Василий, ПИ-17-1, уч. практика 1 курс, 2017-18 гг.
+/// Задача №10 (вариант 4).
+/// Реализует метод уничтожения дерева
+/// 
+
+using System;
 
 namespace Задача_10
 {
@@ -105,15 +111,16 @@ namespace Задача_10
         {
             int size = 10;
             Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("Доброго времени суток!\nДанная программа реализует метод уничтожения дерева\nПриятного пользования!");
             Console.CursorVisible = false;
             Random rnd = new Random();
             Tree tree = new Tree();
             tree = Tree.IdealTree(size, rnd); //Создание дерева из 10ти элементов
-            Tree.ShowTree(tree, 40, 1); //Вывод созданного дерева
+            Tree.ShowTree(tree, 40, 1+4); //Вывод созданного дерева
             Console.WriteLine("\n\n\n\n\n\nНажмите любую клавишу, чтобы уничтожить дерево...");
             Console.ReadKey();
             tree = Tree.Kill(tree); //Уничтожение дерева
-            Tree.ShowTree(tree, 40, 2 + size); //Вывод уничтоженого дерева (не знаю зачем)
+            Tree.ShowTree(tree, 40, 6 + size); //Вывод уничтоженого дерева (не знаю зачем)
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("Дерево уничтожено"); //Констатация факта
             Console.ReadKey();

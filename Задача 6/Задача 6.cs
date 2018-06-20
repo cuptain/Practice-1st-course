@@ -1,4 +1,11 @@
-﻿using System;
+﻿///
+/// Василюк Василий, ПИ-17-1, уч. практика 1 курс, 2017-18 гг.
+/// Задача №6 (4й вариант).
+/// Вычисляет члены (возрастающей/убывающей) последовательности, основываясь на первых трёх
+/// Останавливает вычисления, когда достигает минимума
+/// 
+
+using System;
 
 namespace Задача_6
 {
@@ -21,6 +28,23 @@ namespace Задача_6
                 }
             } while (!ok);
             return number;
+        }
+
+        //Ввод числа в гранях
+        private static double ReadVGran(double min, double max, string task, string name = null)
+        {
+            double chislo;
+            do
+            {
+                chislo = Input(task);
+                if (chislo <= min || chislo >= max)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Ошибка! " + name + " должен(-но) быть больше, чем {0} и меньше, чем {1}. Попробуйте ещё раз:\n", min, max);
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
+            } while (chislo <= min || chislo >= max);
+            return chislo;
         }
 
         //Рекурсия последовательности

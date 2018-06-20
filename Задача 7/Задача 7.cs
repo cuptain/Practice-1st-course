@@ -1,4 +1,10 @@
-﻿using System;
+﻿///
+/// Василюк Василий, ПИ-17-1, уч. практика 1 курс, 2017-18 гг.
+/// Задача №7 (вариант 8).
+/// Выводит все нелинейные булевы функции от трёх переменных
+/// 
+
+using System;
 using System.Collections;
 
 namespace Задача_7
@@ -88,6 +94,7 @@ namespace Задача_7
         static void Main(string[] args)
         {
             Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("Доброго времени суток!\nДанная программа выводит все нелинейные векторы от булевых функций\nПриятного пользования!\n");
             Console.WriteLine("Полученные нелинейные функции:\n");
             Search perebor = new Search();
             foreach (string str in perebor)
