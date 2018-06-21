@@ -268,7 +268,7 @@ namespace Задача_11
                     string cryptSymbols = Encrypt(matrix, symbols);
                     Console.WriteLine("\nЗашифрованная последовательность:\n" + cryptSymbols);
 
-                    string decryptedSymbols = Decipher(matrix, symbols);
+                    string decryptedSymbols = Decipher(matrix, cryptSymbols);
                     Console.WriteLine("\nРасшифрованная последовательность:\n" + decryptedSymbols);
                 }
             }
