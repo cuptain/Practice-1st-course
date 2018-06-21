@@ -274,7 +274,8 @@ namespace Задача_11
             }
 
             Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("\nНажмите Enter для завершения работы программы...");
+            Console.WriteLine("\nДля выхода нажмите клавишу Enter...");
+            Console.CursorVisible = false;
             Console.ReadLine();
         }
     }

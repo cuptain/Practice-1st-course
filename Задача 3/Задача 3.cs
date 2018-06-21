@@ -51,7 +51,10 @@ namespace Задача_3
                 U = x * y + 7;
             }
             Console.WriteLine("U = {0}", U);
-            Console.ReadKey();
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("\nДля выхода нажмите клавишу Enter...");
+            Console.CursorVisible = false;
+            Console.ReadLine();
         }
     }
 }

@@ -78,7 +78,10 @@ namespace Задача_9
             cycleList.head = cycleList.Remove(value, cycleList.tail, cycleList.head, cycleList.tail);
             Console.WriteLine("\nПолучившийся список:\n");
             cycleList.Show();
-            Console.ReadKey();
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("\nДля выхода нажмите клавишу Enter...");
+            Console.CursorVisible = false;
+            Console.ReadLine();
         }
     }
 }

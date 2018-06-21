@@ -105,7 +105,10 @@ namespace Задача_7
                 if (!func.IsLinear())
                     Console.WriteLine(function);
             }
-            Console.ReadKey();
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("\nДля выхода нажмите клавишу Enter...");
+            Console.CursorVisible = false;
+            Console.ReadLine();
         }
     }
 }

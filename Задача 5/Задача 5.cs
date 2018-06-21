@@ -58,8 +58,10 @@ namespace Задача_5
 
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("\nМаксимальное число = {0}", max);
-            Console.ReadKey();
-
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("\nДля выхода нажмите клавишу Enter...");
+            Console.CursorVisible = false;
+            Console.ReadLine();
         }
     }
 }

@@ -123,7 +123,10 @@ namespace Задача_10
             Tree.ShowTree(tree, 40, 6 + size); //Вывод уничтоженого дерева (не знаю зачем)
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("Дерево уничтожено"); //Констатация факта
-            Console.ReadKey();
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("\nДля выхода нажмите клавишу Enter...");
+            Console.CursorVisible = false;
+            Console.ReadLine();
         }
     }
 }

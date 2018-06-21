@@ -48,7 +48,10 @@ namespace Задача_4
 
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("\nИтоговая сумма = {0}", prevSum);
-            Console.ReadKey();
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("\nДля выхода нажмите клавишу Enter...");
+            Console.CursorVisible = false;
+            Console.ReadLine();
         }
     }
 }

@@ -97,8 +97,11 @@ namespace Задача_6
                     if(!Check(a3))
                         Recursion(a3, a2, a1);
                 }
-            }               
-            Console.ReadKey();
+            }
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("\nДля выхода нажмите клавишу Enter...");
+            Console.CursorVisible = false;
+            Console.ReadLine();
         }
     }
 }

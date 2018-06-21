@@ -100,8 +100,10 @@ namespace Задача_8
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("\nДанный граф не является деревом");
             }
-            Console.ReadKey();
-
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("\nДля выхода нажмите клавишу Enter...");
+            Console.CursorVisible = false;
+            Console.ReadLine();
         }
     }
 }
