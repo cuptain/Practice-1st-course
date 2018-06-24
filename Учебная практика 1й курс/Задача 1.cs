@@ -12,10 +12,10 @@ namespace Учебная_практика_1й_курс
 {
     public class Point //Класс точка
     {
-        long x { get; set; } // Координата Х
-        long y { get; set; } // Координата Y
+        double x { get; set; } // Координата Х
+        double y { get; set; } // Координата Y
 
-        public Point(long newX = 0, long newY = 0) //Конструктор
+        public Point(double newX = 0, double newY = 0) //Конструктор
         {
             x = newX;
             y = newY;
@@ -24,7 +24,7 @@ namespace Учебная_практика_1й_курс
         //Функция проверки на пересекаемость
         public static bool Check(Point p1, Point p2, Point p3, Point p4)
         {
-            long tg, b, Xa, Ya;
+            double tg, Xa, b, Ya;
 
             //Расположение точек первого отрезка по порядку
             if (p2.x < p1.x)
@@ -55,6 +55,15 @@ namespace Учебная_практика_1й_курс
                 return false;
             }
 
+            //Если оба отрезка горизонтальные
+            if ((p1.y - p2.y == 0) && (p3.y - p4.y == 0))
+            {
+                if (p1.y == p3.y) //Лежат ли на одной ординате
+                    if (!((Math.Max(p1.x, p2.x) < Math.Min(p3.x, p4.x)) || (Math.Min(p1.x, p2.x) > Math.Max(p3.x, p4.x)))) //Есть ли общая ордината
+                        return true;
+                return false;
+            }
+
             //Если первый отрезок вертикальный
             if (p1.x - p2.x == 0)
             {
@@ -66,6 +75,7 @@ namespace Учебная_практика_1й_курс
                     return true;
                 return false;
             }
+
              //Если второй отрезок вертикальный
             if (p3.x - p4.x == 0)
             {
@@ -79,10 +89,10 @@ namespace Учебная_практика_1й_курс
             }
 
             //Оба отрезка не вертикальные
-            long A1 = (p1.y - p2.y) / (p1.x - p2.x);
-            long A2 = (p3.y - p4.y) / (p3.x - p4.x);
-            long b1 = p1.y - A1 * p1.x;
-            long b2 = p3.y - A2 * p3.x;
+            double A1 = (p1.y - p2.y) / (p1.x - p2.x);
+            double A2 = (p3.y - p4.y) / (p3.x - p4.x);
+            double b1 = p1.y - A1 * p1.x;
+            double b2 = p3.y - A2 * p3.x;
             if (A1 == A2) // Паралелльный
                 return false;
             Xa = (b2 - b1) / (A1 - A2); //Абсцисса пересечения

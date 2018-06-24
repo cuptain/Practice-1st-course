@@ -10,6 +10,86 @@ namespace Задача_8
 {
     class Program
     {
+        public static int Menu(string headLine, params string[] paragraphs) // Наикрасивейшее меню
+        {
+            Console.Clear();
+            Console.WriteLine(headLine);
+            int paragraph = 0, x = 2, y = 5, oldParagraph = 0;
+            Console.CursorVisible = false;
+            for (int i = 0; i < paragraphs.Length; i++)
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.SetCursorPosition(x, y + i);
+                Console.Write(paragraphs[i]);
+            }
+            bool choice = false;
+            while (true)
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.BackgroundColor = ConsoleColor.Black;
+                Console.SetCursorPosition(x, y + oldParagraph);
+                Console.Write(paragraphs[oldParagraph] + " ");
+
+                Console.ForegroundColor = ConsoleColor.Black;
+                Console.BackgroundColor = ConsoleColor.White;
+                Console.SetCursorPosition(x, y + paragraph);
+                Console.Write(paragraphs[paragraph]);
+
+                oldParagraph = paragraph;
+
+                var key = Console.ReadKey();
+
+                switch (key.Key)
+                {
+                    case ConsoleKey.DownArrow:
+                        paragraph++;
+                        break;
+                    case ConsoleKey.UpArrow:
+                        paragraph--;
+                        break;
+                    case ConsoleKey.Enter:
+                        choice = true;
+                        break;
+                }
+                if (paragraph >= paragraphs.Length)
+                    paragraph = 0;
+                else if (paragraph < 0)
+                    paragraph = paragraphs.Length - 1;
+                if (choice)
+                {
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.BackgroundColor = ConsoleColor.Black;
+                    Console.CursorVisible = true;
+                    Console.Clear();
+                    break;
+                }
+            }
+            Console.Clear();
+            Console.CursorVisible = true;
+            return paragraph;
+        }
+
+        public static void Continue() //Продолжение
+        {
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("\nДля продолжения нажмите клавишу Enter...");
+            Console.ReadLine();
+        }
+
+        public static void OutputGraph() //Вывод графа
+        {
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("\nМатрица смежности для графа:");
+            for (int i = 0; i < matrix.GetLength(0); i++)
+            {
+                for (int j = 0; j < matrix.GetLength(0); j++)
+                {
+                    Console.Write(matrix[i, j] + " ");
+                }
+                Console.WriteLine();
+            }
+        }
+
         //Ввод целых чисел
         private static int Input(string task)
         {
@@ -62,48 +142,99 @@ namespace Задача_8
             return true;
         }
 
-        static int kolVer { get; set; } //Количество вершин
-        static int[,] matrix { get; set; } //Матрица смежностей
+        public static int kolVer { get; set; } //Количество вершин
+        public static int[,] matrix { get; set; } //Матрица смежностей
 
         static void Main(string[] args)
         {
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("Доброго времени суток!\nДанная программа определяет, является ли граф, заданный таблицей смежности, деревом" +
                 "\nПриятного пользования!\n");
-            int kolReb = 0;
-            kolVer = ReadVGran(0, 101, "Введите количество вершин графа:", "Количество вершин графа");
-            matrix = new int[kolVer, kolVer];
-            for (int i = 0; i < kolVer; i++)
-                for (int j = 0; j < i; j++)
-                {
-                    matrix[i, j] = matrix[j, i] =
-                          ReadVGran(-1, 2, "Введите 1, если вершина " + (j + 1) + " и вершина " + (i + 1) + " связаны, или введите 0, если нет:", "Ответ");
-                    if (matrix[i, j] == 1)
-                        kolReb++;
-                }
-
-            if (kolVer - kolReb == 1)
+            int kolReb;
+            while (true)
             {
-                if (Check())
+                var sw = Menu("Доброго времени суток!\nДанная программа определяет, является ли граф, заданный таблицей смежности, деревом" +
+                "\nПриятного пользования!\n", "Создать матрицу смежности", "Сгенерировать матрицу смежности", "Выход");
+                switch (sw)
                 {
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("\nДанный граф является деревом");
-                }
-                else
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("\nДанный граф не является деревом");
+                    case 0:
+                        {
+                            kolReb = 0;
+                            kolVer = ReadVGran(0, 101, "Введите количество вершин графа:", "Количество вершин графа");
+                            matrix = new int[kolVer, kolVer];
+                            for (int i = 0; i < kolVer; i++)
+                                for (int j = 0; j < i; j++)
+                                {
+                                    matrix[i, j] = matrix[j, i] =
+                                          ReadVGran(-1, 2, "Введите 1, если вершина " + (j + 1) + " и вершина " + (i + 1) + " связаны, или введите 0, если нет:", "Ответ");
+                                    if (matrix[i, j] == 1)
+                                        kolReb++;
+                                }
+                            OutputGraph();
+                            if (kolVer - kolReb == 1)
+                            {
+                                if (Check())
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Green;
+                                    Console.WriteLine("\nДанный граф является деревом");
+                                    Continue();
+                                }
+                                else
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    Console.WriteLine("\nДанный граф не является деревом");
+                                    Continue();
+                                }
+                            }
+                            else
+                            {
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.WriteLine("\nДанный граф не является деревом");
+                                Continue();
+                            }
+                        }
+                        break;
+                    case 1:
+                        {
+                            kolReb = 0;
+                            Random rnd = new Random();
+                            kolVer = rnd.Next(1, 101);
+                            matrix = new int[kolVer, kolVer];
+                            for (int i = 0; i < kolVer; i++)
+                                for (int j = 0; j < i; j++)
+                                {
+                                    matrix[i, j] = matrix[j, i] = rnd.Next(0, 2);
+                                    if (matrix[i, j] == 1)
+                                        kolReb++;
+                                }
+                            OutputGraph();
+                            if (kolVer - kolReb == 1)
+                            {
+                                if (Check())
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Green;
+                                    Console.WriteLine("\nДанный граф является деревом");
+                                    Continue();
+                                }
+                                else
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    Console.WriteLine("\nДанный граф не является деревом");
+                                    Continue();
+                                }
+                            }
+                            else
+                            {
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.WriteLine("\nДанный граф не является деревом");
+                                Continue();
+                            }
+                        }
+                        break;
+                    case 2:
+                        return;
                 }
             }
-            else
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("\nДанный граф не является деревом");
-            }
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("\nДля выхода нажмите клавишу Enter...");
-            Console.CursorVisible = false;
-            Console.ReadLine();
         }
     }
 }

@@ -30,28 +30,17 @@ namespace Задача_6
             return number;
         }
 
-        //Ввод числа в гранях
-        private static double ReadVGran(double min, double max, string task, string name = null)
-        {
-            double chislo;
-            do
-            {
-                chislo = Input(task);
-                if (chislo <= min || chislo >= max)
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Ошибка! " + name + " должен(-но) быть больше, чем {0} и меньше, чем {1}. Попробуйте ещё раз:\n", min, max);
-                    Console.ForegroundColor = ConsoleColor.White;
-                }
-            } while (chislo <= min || chislo >= max);
-            return chislo;
-        }
-
         //Рекурсия последовательности
         static void Recursion(double ak1, double ak2, double ak3)
         {
             double newA = ak1/2 + ak2/2 + ak3/2;
             Console.Write("\na{0} = {1}\n", count, newA);
+            if (newA < Double.MinValue)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("\nВведена убывающая последовательность, максимум никогда не будет достигнут");
+                return;
+            }
             if (!Check(newA))
                 Recursion(newA, ak1, ak2);
             else return;
