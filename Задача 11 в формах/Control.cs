@@ -10,9 +10,14 @@ using System.IO;
 
 namespace Control
 {
-    class Program
+    public class Program
     {
         const int order = 10;
+        public static bool okReading;
+        public static int[][] matrix { get; set; }
+        public static string symbols { get; set; }
+        public static string cryptSymbols { get; set; }
+        public static string decryptedSymbols { get; set; }
 
         private static int[] ReadValue(out bool ok, string data) //Чтение матрицы по строкам с проверкой
         {
@@ -26,41 +31,27 @@ namespace Control
             return digits;
         }
 
-        static int[][] ReadMatrix(StreamReader inputMatrix, out bool okReading) //чтение матрицы из файла
+        public static int[][] ReadMatrix(StreamReader inputMatrix, out bool okReading) //чтение матрицы из файла
         {
             int[][] matrix = new int[order][];
             okReading = true;
-
             try
             {
                 for (int row = 0; row < order && okReading; row++)
                 {
                     string data = inputMatrix.ReadLine();
                     matrix[row] = ReadValue(out okReading, data);
-
-                    if (!okReading)
-                        Console.WriteLine("В матрице обнаружено значение, отличное от \"0\" и \"1\"");
-
-                    else if (matrix[row].Length != order)
-                    {
+                    if (matrix[row].Length != order)
                         okReading = false;
-                        Console.WriteLine("В матрице обнаружена строка с количеством элементов, не равным " + order);
-                    }
                 }
             }
             catch (Exception)
             {
                 okReading = false;
-                Console.WriteLine("Ошибка чтения матрицы \nПроверьте количество строк и значения");
             }
 
             if (okReading)
-            {
                 okReading = CheckMatrix(matrix);
-
-                if (!okReading)
-                    Console.WriteLine("Матрица не может быть ключом");
-            }
 
             inputMatrix.Close();
             return matrix;
@@ -84,10 +75,7 @@ namespace Control
 
             }
             else
-            {
-                Console.WriteLine("В матрице обнаружено значение, отличное от 0 и 1");
                 return false;
-            }
 
             return true;
         }
@@ -112,7 +100,7 @@ namespace Control
             return okValues;
         }
 
-        static string ReadString(StreamReader inputString, out bool okReading) // чтение строки для шифрования и дешифрования
+        public static string ReadString(StreamReader inputString, out bool okReading) // чтение строки для шифрования и дешифрования
         {
             string symbols = string.Empty;
             okReading = true;
@@ -124,20 +112,18 @@ namespace Control
             }
             catch (Exception)
             {
-                Console.WriteLine("Ошибка чтения последовательности");
                 okReading = false;
             }
 
             if (symbols == null || okReading && symbols.Length != 100)
             {
                 okReading = false;
-                Console.WriteLine("Количество символов последовательности не равно 100");
             }
 
             return symbols;
         }
 
-        static string Encrypt(int[][] matrix, string symbols) //шифрование последовательности symbols решеткой matrix
+        public static string Encrypt(int[][] matrix, string symbols) //шифрование последовательности symbols решеткой matrix
         {
             int currentSymbol = 0;
             string result = string.Empty;
@@ -191,7 +177,7 @@ namespace Control
             return result;
         }
 
-        static string Decipher(int[][] matrix, string code) // дешифрование последовательности code матрицей matrix
+        public static string Decipher(int[][] matrix, string code) // дешифрование последовательности code матрицей matrix
         {
             char[][] codeMatrix = new char[order][];
             int currentSymbol = 0;
@@ -222,61 +208,6 @@ namespace Control
             }
 
             return result;
-        }
-
-        static void Main(string[] args)
-        {
-            int[][] matrix = new int[0][];
-            string symbols = string.Empty;
-            bool okReading;
-            Console.CursorVisible = false;
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("Доброго времени суток!\nДанная программа шифрует расшифровывает заданную последовательность (string.txt)\n" +
-                "при помощи заданной матрицы-ключа (matrix.txt)\nПриятного пользования!");
-
-            try
-            {
-                using (StreamReader inputMatrix = new StreamReader("matrix.txt"))
-                {
-                    matrix = ReadMatrix(inputMatrix, out okReading);
-                }
-            }
-            catch (Exception)
-            {
-                okReading = false;
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("\nОшибка чтения матрицы");
-            }
-
-            if (okReading)
-            {
-                try
-                {
-                    using (StreamReader inputString = new StreamReader("string.txt"))
-                        symbols = ReadString(inputString, out okReading);
-                }
-                catch (Exception)
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("\nОшибка чтения последовательности");
-                    okReading = false;
-                }
-
-                if (okReading)
-                {
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    string cryptSymbols = Encrypt(matrix, symbols);
-                    Console.WriteLine("\nЗашифрованная последовательность:\n" + cryptSymbols);
-
-                    string decryptedSymbols = Decipher(matrix, cryptSymbols);
-                    Console.WriteLine("\nРасшифрованная последовательность:\n" + decryptedSymbols);
-                }
-            }
-
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("\nДля выхода нажмите клавишу Enter...");
-            Console.CursorVisible = false;
-            Console.ReadLine();
         }
     }
 }

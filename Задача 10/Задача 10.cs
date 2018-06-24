@@ -14,11 +14,6 @@ namespace Задача_10
         public Tree left { get; set; } // Адрес левого поддерева
         public Tree right { get; set; } // Адрес правого поддерева
 
-        public override string ToString() //перегрузка ToString
-        {
-            return data.ToString();
-        }
-
         public Tree(int value = 0) // Конструктор
         {
             data = value;
