@@ -12,8 +12,15 @@ namespace Задача_11_в_формах
             InitializeComponent();
         }
 
+        private void Click()
+        {
+            OutDecrypt.Text = "";
+            OutEncrypt.Text = "";
+        }
+
         private void OpenMatrix_Click(object sender, EventArgs e)
         {
+            Click();
             OpenFileDialog dialogDocumentOpen = new OpenFileDialog
             {
                 InitialDirectory =
@@ -57,6 +64,7 @@ namespace Задача_11_в_формах
 
         private void OpenString_Click(object sender, EventArgs e)
         {
+            Click();
             OpenFileDialog dialogDocumentOpen = new OpenFileDialog
             {
                 InitialDirectory =
