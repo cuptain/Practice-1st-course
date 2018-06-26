@@ -13,8 +13,8 @@ namespace Задача_2
     class Program
     {
         static double[][] digits { get; set; } // коэффициенты, цифры и степени 10
-        static double code;
-        static double result = 0;
+        static long code;
+        static long result = 0;
 
         private static string ToPattern(string num)
         {
@@ -40,21 +40,18 @@ namespace Задача_2
             }
             int x = digits.Length;
             for (int i = 0; i < digits.Length; i++)
-            {
                 digits[i][2] = Math.Pow(10, digits[i][1]) + Math.Pow(10, digits[Sdvig(digits.Length, k, i)][1]);
-                x--;
-            }
         }
 
-        public static void Perebor()
+        public static void Perebor(int pow)
         {
-            for (double i = 10; i < Math.Pow(10, digits.Length) - 1; i++)
+            for (double i = Math.Pow(10, pow); i < Math.Pow(10, digits.Length) - 1; i++)
             {
                 result = 0;
                 for (int j = 0; j < digits.Length; j++)
                 {
                     digits[j][0] = Convert.ToDouble(ToPattern(i.ToString())[j].ToString());
-                    result += digits[j][0] * digits[j][2];
+                    result += (long)(digits[j][0] * digits[j][2]);
                 }
                 if (result == code)
                     break;
@@ -69,7 +66,7 @@ namespace Задача_2
             if(num < 0)
             {
                 int i = num;
-                num = size - 1 + num;
+                num = size + num;
             }
             return num;
         }
@@ -77,21 +74,29 @@ namespace Задача_2
         static void Main(string[] args)
         {
             StreamReader sr = new StreamReader("INPUT.TXT");
-            code = Convert.ToDouble(sr.ReadLine());
+            code = (long)Convert.ToDouble(sr.ReadLine());
             int k = Convert.ToInt32(sr.ReadLine());
-            string answer = "";           
-            Coefs(code.ToString().Length - 1, k);
-            Perebor();
-            if (result != code)
+            string answer = "";
+            if (Math.Pow(10,code.ToString().Length - 2) >= Math.Pow(10,1 + k))
+            {
+                Coefs(code.ToString().Length - 1, k);
+                Perebor(digits.Length - 1);
+                if (result != code)
+                {
+                    Coefs(code.ToString().Length, k);
+                    Perebor(digits.Length - 1);
+                }
+            }
+            else
             {
                 Coefs(code.ToString().Length, k);
-                Perebor();
+                Perebor(digits.Length - 1);
             }
             for (int i = 0; i < digits.Length; i++)
                 answer += digits[i][0].ToString();
             answer = ToAnswer(answer);
             StreamWriter sw = new StreamWriter("OUTPUT.TXT");
-            sw.WriteLine(Convert.ToDouble(answer));
+            sw.WriteLine((long)Convert.ToDouble(answer));
             sw.Dispose();
             sr.Dispose();
         }
