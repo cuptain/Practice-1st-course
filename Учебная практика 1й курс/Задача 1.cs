@@ -42,6 +42,10 @@ namespace Учебная_практика_1й_курс
                 p4 = tmp;
             }
 
+            //Елси один и тот же
+            if ((p1.x == p3.x && p1.y == p3.y) || (p1.x == p4.x && p1.y == p4.y) || (p2.x == p3.x && p2.y == p3.y) || (p2.x == p4.x && p2.y == p4.y))
+                return true;
+
             //Проверка расположений концов отрезка
             if (p2.x < p3.x)
                 return false;
@@ -50,7 +54,7 @@ namespace Учебная_практика_1й_курс
             if ((p1.x - p2.x == 0) && (p3.x - p4.x == 0))
             {
                 if (p1.x == p3.x) //Лежат ли на одной абсциссе
-                    if (!((Math.Max(p1.y, p2.y) < Math.Min(p3.y, p4.y)) || (Math.Min(p1.y, p2.y) > Math.Max(p3.y, p4.y)))) //Есть ли общая ордината
+                    if (!((Math.Max(p1.y, p2.y) == Math.Min(p3.y, p4.y)) || (Math.Min(p1.y, p2.y) == Math.Max(p3.y, p4.y)))) //Есть ли общая ордината
                         return true;
                 return false;
             }
@@ -59,7 +63,7 @@ namespace Учебная_практика_1й_курс
             if ((p1.y - p2.y == 0) && (p3.y - p4.y == 0))
             {
                 if (p1.y == p3.y) //Лежат ли на одной ординате
-                    if (!((Math.Max(p1.x, p2.x) < Math.Min(p3.x, p4.x)) || (Math.Min(p1.x, p2.x) > Math.Max(p3.x, p4.x)))) //Есть ли общая ордината
+                    if (!((Math.Max(p1.x, p2.x) == Math.Min(p3.x, p4.x)) || (Math.Min(p1.x, p2.x) == Math.Max(p3.x, p4.x)))) //Есть ли общая ордината
                         return true;
                 return false;
             }

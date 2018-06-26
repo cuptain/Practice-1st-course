@@ -79,24 +79,21 @@ namespace Задача_12
             arr = result.ToArray();
         }
 
-        private static void AddToTreeElement(int value, ref TreeElement localRoot, ref int countCompare, ref int countSwap) //Добавление элемента в дерево
+        private static void AddToTreeElement(int value, ref TreeElement localRoot, ref int countCompare) //Добавление элемента в дерево
         {
             if (localRoot == null)
             {
-                countSwap++;
                 localRoot = new TreeElement(value);
                 return;
             }
             countCompare++;
             if (localRoot.Data < value)
             {
-                countSwap++;
-                AddToTreeElement(value, ref localRoot.Right, ref countCompare, ref countSwap);
+                AddToTreeElement(value, ref localRoot.Right, ref countCompare);
             }
             else
             {
-                countSwap++;
-                AddToTreeElement(value, ref localRoot.Left, ref countCompare, ref countSwap);
+                AddToTreeElement(value, ref localRoot.Left, ref countCompare);
             }
         }
 
@@ -105,7 +102,10 @@ namespace Задача_12
             countCompare = 0;
             countSwap = 0;
             foreach (int el in arr)
-                AddToTreeElement(el, ref root, ref countCompare, ref countSwap);
+            {
+                AddToTreeElement(el, ref root, ref countCompare);
+                countSwap++;
+            }
         }
 
         private static void GetSortedNumRec(TreeElement node) // Обход дерева
@@ -151,18 +151,18 @@ namespace Задача_12
         public void IncreaseSort() //Сортировка возрастающего массива
         {
             var array2 = CreateArrayIncrease();
-            Console.WriteLine("Массив до сортировкм:");
+            Console.WriteLine("Массив до сортировки:");
             Show();
 
             InsertionSort(out var countSravn, out var countSwap);
-            Console.WriteLine("\n\nСортировка простой вставкой.");
+            Console.WriteLine("\n\nСортировка простыми вставками");
             Console.WriteLine("Кол-во сравнений: {0}", countSravn);
             Console.WriteLine("Кол-во перестановок: {0}", countSwap);
             Console.WriteLine("Отсортированный массив: ");
             Show();
 
             array2.BinaryTreeSort(out countSravn, out countSwap);
-            Console.WriteLine("\n\nСортировка подсчетом.");
+            Console.WriteLine("\n\nСортировка с помощью бинарного дерева");
             Console.WriteLine("Кол-во сравнений: {0}", countSravn);
             Console.WriteLine("Кол-во перестановок: {0}", countSwap);
             Console.WriteLine("Отсортированный массив: ");
@@ -175,18 +175,18 @@ namespace Задача_12
         public void DecreaseSort() //Сортировка убывающего массива
         {
             var array2 = CreateArrayDecrease();
-            Console.WriteLine("Массив до сортировкм:");
+            Console.WriteLine("Массив до сортировки:");
             Show();
 
             InsertionSort(out var countSravn, out var countSwap);
-            Console.WriteLine("\n\nСортировка простой вставкой.");
+            Console.WriteLine("\n\nСортировка простыми вставками");
             Console.WriteLine("Кол-во сравнений: {0}", countSravn);
             Console.WriteLine("Кол-во перестановок: {0}", countSwap);
             Console.WriteLine("Отсортированный массив: ");
             Show();
 
             array2.BinaryTreeSort(out countSravn, out countSwap);
-            Console.WriteLine("\n\nСортировка подсчетом.");
+            Console.WriteLine("\n\nСортировка с помощью бинарного дерева");
             Console.WriteLine("Кол-во сравнений: {0}", countSravn);
             Console.WriteLine("Кол-во перестановок: {0}", countSwap);
             Console.WriteLine("Отсортированный массив: ");
@@ -199,18 +199,18 @@ namespace Задача_12
         public void RandomSort() //Сортировка раномного массива
         {
             var array2 = CreateArrayRandom();
-            Console.WriteLine("Массив до сортировкм:");
+            Console.WriteLine("Массив до сортировки:");
             Show();
 
             InsertionSort(out var countSravn, out var countSwap);
-            Console.WriteLine("\n\nСортировка простой вставкой.");
+            Console.WriteLine("\n\nСортировка простыми вставками");
             Console.WriteLine("Кол-во сравнений: {0}", countSravn);
             Console.WriteLine("Кол-во перестановок: {0}", countSwap);
             Console.WriteLine("Отсортированный массив: ");
             Show();
 
             array2.BinaryTreeSort(out countSravn, out countSwap);
-            Console.WriteLine("\n\nСортировка подсчетом.");
+            Console.WriteLine("\n\nСортировка с помощью бинарного дерева");
             Console.WriteLine("Кол-во сравнений: {0}", countSravn);
             Console.WriteLine("Кол-во перестановок: {0}", countSwap);
             Console.WriteLine("Отсортированный массив: ");

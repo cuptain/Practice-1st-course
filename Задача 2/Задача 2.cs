@@ -12,17 +12,86 @@ namespace Задача_2
 {
     class Program
     {
+        static double[][] digits { get; set; } // коэффициенты, цифры и степени 10
+        static double code;
+        static double result = 0;
+
+        private static string ToPattern(string num)
+        {
+            while (num.Length < digits.Length)
+                num = "0" + num;
+            return num;
+        }
+
+        private static string ToAnswer(string num)
+        {
+            while (num[0] == '0')
+                num = num.Remove(0, 1);
+            return num;
+        }
+
+        public static void Coefs(int size, int k)
+        {
+            digits = new double[size][];
+            for (int i = 0; i < digits.Length; i++)
+            {
+                digits[i] = new double[3];
+                digits[i][1] = digits.Length - 1 - i;
+            }
+            int x = digits.Length;
+            for (int i = 0; i < digits.Length; i++)
+            {
+                digits[i][2] = Math.Pow(10, digits[i][1]) + Math.Pow(10, digits[Sdvig(digits.Length, k, i)][1]);
+                x--;
+            }
+        }
+
+        public static void Perebor()
+        {
+            for (double i = 10; i < Math.Pow(10, digits.Length) - 1; i++)
+            {
+                result = 0;
+                for (int j = 0; j < digits.Length; j++)
+                {
+                    digits[j][0] = Convert.ToDouble(ToPattern(i.ToString())[j].ToString());
+                    result += digits[j][0] * digits[j][2];
+                }
+                if (result == code)
+                    break;
+            }
+        }
+
+        private static int Sdvig(int size, int k, int pos) //подбор коэффициентов
+        {
+            int num = pos - k;
+            if (pos == 0)
+                num = size - k;
+            if(num < 0)
+            {
+                int i = num;
+                num = size - 1 + num;
+            }
+            return num;
+        }
+
         static void Main(string[] args)
         {
-            string N = "319";
             StreamReader sr = new StreamReader("INPUT.TXT");
-            string code = sr.ReadLine();
+            code = Convert.ToDouble(sr.ReadLine());
             int k = Convert.ToInt32(sr.ReadLine());
-            int[] arr = new int[code.Length];
-            for (int i = 0; i < code.Length; i++)
-                arr[i] = Convert.ToInt32(code[i]) - 48;
+            string answer = "";           
+            Coefs(code.ToString().Length - 1, k);
+            Perebor();
+            if (result != code)
+            {
+                Coefs(code.ToString().Length, k);
+                Perebor();
+            }
+            for (int i = 0; i < digits.Length; i++)
+                answer += digits[i][0].ToString();
+            answer = ToAnswer(answer);
             StreamWriter sw = new StreamWriter("OUTPUT.TXT");
-            sw.WriteLine(N);
+            sw.WriteLine(Convert.ToDouble(answer));
             sw.Dispose();
             sr.Dispose();
         }
